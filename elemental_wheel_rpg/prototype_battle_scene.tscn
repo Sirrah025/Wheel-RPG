@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://5ub66v5rxumk"]
+
+[ext_resource type="PackedScene" uid="uid://ynmfrkjnnm6r" path="res://the-wheel-godot/wheel.tscn" id="1_igl0m"]
+[ext_resource type="Script" uid="uid://bp8aej24nd7ku" path="res://damage_text.gd" id="2_rfxso"]
+
+[node name="Prototype Battle Scene" type="Node2D" unique_id=276792965]
+
+[node name="Wheel" parent="." unique_id=264767501 instance=ExtResource("1_igl0m")]
+
+[node name="Damage" type="RichTextLabel" parent="." unique_id=1227112372]
+offset_left = 323.0
+offset_top = 141.0
+offset_right = 472.0
+offset_bottom = 181.0
+text = "Total Damage: "
+script = ExtResource("2_rfxso")
+
+[connection signal="new_dir_chosen" from="Wheel" to="Damage" method="_on_wheel_new_dir_chosen"]

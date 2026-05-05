@@ -107,6 +107,7 @@ var target_selections:int = 4 ## how many selections are allowed; default is 4.
 func _ready()->void:
 	reset() # all the setup is contained in reset
 	rotation_finished.connect(end_check) # check if puzzle is completed when rotation is done
+	new_dir_chosen.connect(WheelDebug._handle_dir_chosen) # debugging wheel
 
 # handles input for our minigame
 func _unhandled_input(_event: InputEvent) -> void:
@@ -201,6 +202,7 @@ func get_current_wheel_value()->WheelPayload:
 			wp.base_value = base_numbers[x]
 			wp.slice_value = slice_values[x]
 			wp.total_value = wp.base_value * wp.slice_value
+			wp.damage_type = GlobalEnums.DamageType.keys()[current_direction / 90]
 	return wp
 #endregion
 
@@ -248,4 +250,5 @@ class WheelPayload:
 	var base_value:int
 	var slice_value:int
 	var total_value:int
+	var damage_type:GlobalEnums.DamageType
 #endregion
