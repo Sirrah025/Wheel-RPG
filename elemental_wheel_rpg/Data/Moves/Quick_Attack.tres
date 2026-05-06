@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Move_Data" format=3 uid="uid://dlpwk6hk8poen"]
+
+[ext_resource type="Script" uid="uid://ox8uhl7w32pe" path="res://Data/Moves/move_data.gd" id="1_774wd"]
+
+[resource]
+script = ExtResource("1_774wd")
+name = "Quick Attack"
+power = 40
+speed_priority = 1
+uses = 30
+metadata/_custom_type_script = "uid://ox8uhl7w32pe"

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Entity_Data" format=3 uid="uid://0t1leps3oxna"]
+
+[ext_resource type="Script" uid="uid://c6qylkpor6uiv" path="res://Data/Entities/entity_data.gd" id="1_spi1u"]
+
+[resource]
+script = ExtResource("1_spi1u")
+resistances = {
+0: 2,
+1: 0,
+2: 1,
+3: 1
+}
+Max_HP = 39
+Attack = 52
+Defense = 43
+Speed = 65
+metadata/_custom_type_script = "uid://c6qylkpor6uiv"

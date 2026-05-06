@@ -186,6 +186,11 @@ func reset()->void:
 	_current_value = get_current_wheel_value() 
 	_state = WheelState.AWAITING_SELECTION 
 
+## Called by other calsses to set up wheel
+func open_wheel() -> void:
+	reset()
+	
+
 ## checks if the minigame is finished
 func end_check()->void:
 	if num_selections == target_selections:

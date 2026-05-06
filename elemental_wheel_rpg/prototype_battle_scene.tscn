@@ -1,13 +1,40 @@
 [gd_scene format=3 uid="uid://5ub66v5rxumk"]
 
 [ext_resource type="PackedScene" uid="uid://ynmfrkjnnm6r" path="res://the-wheel-godot/wheel.tscn" id="1_igl0m"]
+[ext_resource type="Script" uid="uid://c05vklkjhjmvv" path="res://Systems/Scripts/battle_controller.gd" id="1_rfxso"]
+[ext_resource type="Script" uid="uid://nwfs84gkgpkm" path="res://Systems/Scripts/wheel_display.gd" id="2_3e347"]
 [ext_resource type="Script" uid="uid://bp8aej24nd7ku" path="res://damage_text.gd" id="2_rfxso"]
+[ext_resource type="Script" uid="uid://dv1rmuim3a4e1" path="res://Data/entity.gd" id="5_4jure"]
+[ext_resource type="Resource" uid="uid://0t1leps3oxna" path="res://Data/Entities/Player.tres" id="6_cluib"]
+[ext_resource type="Script" uid="uid://ox8uhl7w32pe" path="res://Data/Moves/move_data.gd" id="7_34jd4"]
+[ext_resource type="Resource" uid="uid://cuwxuutdijgr7" path="res://Data/Moves/Scratch.tres" id="8_kigis"]
+[ext_resource type="Script" uid="uid://pcqwpekbu4xt" path="res://Data/enemy_entity.gd" id="9_34jd4"]
+[ext_resource type="Resource" uid="uid://bdgddu0rgp6u2" path="res://Data/Entities/Test_Enemy.tres" id="10_ri76t"]
+[ext_resource type="Resource" uid="uid://dt0gyha325hmn" path="res://Data/Moves/Tackle.tres" id="11_ry6t0"]
 
-[node name="Prototype Battle Scene" type="Node2D" unique_id=276792965]
+[node name="Prototype Battle Scene" type="Node2D" unique_id=276792965 node_paths=PackedStringArray("player_entity", "enemy_entity")]
+script = ExtResource("1_rfxso")
+player_entity = NodePath("Player")
+enemy_entity = NodePath("Enemy")
 
-[node name="Wheel" parent="." unique_id=264767501 instance=ExtResource("1_igl0m")]
+[node name="Wheel Display" type="Control" parent="." unique_id=822662199]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_3e347")
 
-[node name="Damage" type="RichTextLabel" parent="." unique_id=1227112372]
+[node name="Wheel" parent="Wheel Display" unique_id=264767501 instance=ExtResource("1_igl0m")]
+visible = false
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 300.0
+
+[node name="Damage" type="RichTextLabel" parent="Wheel Display" unique_id=1227112372]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
 offset_left = 323.0
 offset_top = 141.0
 offset_right = 472.0
@@ -15,4 +42,46 @@ offset_bottom = 181.0
 text = "Total Damage: "
 script = ExtResource("2_rfxso")
 
-[connection signal="new_dir_chosen" from="Wheel" to="Damage" method="_on_wheel_new_dir_chosen"]
+[node name="Player Menu" type="Control" parent="." unique_id=1725834501]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_top = 643.0
+offset_bottom = 643.0
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Player Moves" type="ItemList" parent="Player Menu" unique_id=424196708]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 37.0
+offset_top = -307.0
+offset_right = 224.0
+offset_bottom = -20.0
+grow_vertical = 0
+allow_reselect = true
+allow_search = false
+
+[node name="Player" type="Node" parent="." unique_id=1164922810]
+script = ExtResource("5_4jure")
+entity_data = ExtResource("6_cluib")
+moves = Array[ExtResource("7_34jd4")]([ExtResource("8_kigis")])
+metadata/_custom_type_script = "uid://dv1rmuim3a4e1"
+
+[node name="Enemy" type="Node" parent="." unique_id=1269722214]
+script = ExtResource("9_34jd4")
+entity_data = ExtResource("10_ri76t")
+moves = Array[ExtResource("7_34jd4")]([ExtResource("11_ry6t0")])
+metadata/_custom_type_script = "uid://pcqwpekbu4xt"
+
+[connection signal="start_wheel" from="." to="Wheel Display" method="_on_prototype_battle_scene_start_wheel"]
+[connection signal="new_dir_chosen" from="Wheel Display/Wheel" to="." method="_on_wheel_new_dir_chosen"]
+[connection signal="new_dir_chosen" from="Wheel Display/Wheel" to="Wheel Display/Damage" method="_on_wheel_new_dir_chosen"]
+[connection signal="puzzle_finished" from="Wheel Display/Wheel" to="." method="_on_wheel_puzzle_finished"]
+[connection signal="puzzle_finished" from="Wheel Display/Wheel" to="Wheel Display" method="_on_wheel_puzzle_finished"]
+[connection signal="item_activated" from="Player Menu/Player Moves" to="." method="_on_player_moves_item_activated"]
