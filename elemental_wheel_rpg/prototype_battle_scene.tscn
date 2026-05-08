@@ -24,6 +24,7 @@
 [ext_resource type="Resource" uid="uid://dlpwk6hk8poen" path="res://Data/Moves/Quick_Attack.tres" id="17_2e0af"]
 [ext_resource type="Resource" uid="uid://ls6v06eexaf3" path="res://Data/Text/enemy_fainted_text.tres" id="17_3v56m"]
 [ext_resource type="Resource" uid="uid://ufsumq2w85d4" path="res://Data/Text/player_fainted_text.tres" id="18_md2b3"]
+[ext_resource type="Texture2D" uid="uid://dit8kjnrn4bjj" path="res://Visuals/Pixelart arrow icon pack 1.0.png" id="21_wj141"]
 
 [sub_resource type="Animation" id="Animation_sdfsb"]
 resource_name = "Player Entity Defeated"
@@ -612,13 +613,14 @@ offset_bottom = 339.0
 scale = Vector2(10.08, 7.9200006)
 color = Color(1, 0.99607843, 0.78039217, 1)
 
-[node name="Wheel Display" type="Control" parent="." unique_id=822662199]
+[node name="Wheel Display" type="Control" parent="." unique_id=822662199 node_paths=PackedStringArray("enemy")]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("2_3e347")
+enemy = NodePath("../Enemy2D/Enemy")
 
 [node name="Wheel" parent="Wheel Display" unique_id=264767501 instance=ExtResource("1_igl0m")]
 visible = false
@@ -637,6 +639,23 @@ offset_bottom = 181.0
 theme_override_constants/outline_size = 3
 text = "Total Damage: "
 script = ExtResource("2_rfxso")
+
+[node name="Positive Indicator" type="Sprite2D" parent="Wheel Display" unique_id=1774462575]
+visible = false
+position = Vector2(358.275, 206)
+scale = Vector2(4.735, 4.735)
+texture = ExtResource("21_wj141")
+region_enabled = true
+region_rect = Rect2(19, 17, 9, 13)
+
+[node name="Negative Indicator" type="Sprite2D" parent="Wheel Display" unique_id=1108522379]
+visible = false
+position = Vector2(358.275, 206)
+rotation = 3.1415927
+scale = Vector2(4.735, 4.735)
+texture = ExtResource("21_wj141")
+region_enabled = true
+region_rect = Rect2(3, 17, 9, 13)
 
 [node name="Player Menu" type="Control" parent="." unique_id=1725834501]
 unique_name_in_owner = true
@@ -720,7 +739,10 @@ script = ExtResource("12_ry6t0")
 [connection signal="health_at_zero" from="Enemy2D/EnemyHealthBar" to="Enemy2D/Enemy" method="_on_enemy_health_at_zero"]
 [connection signal="new_dir_chosen" from="Wheel Display/Wheel" to="." method="_on_wheel_new_dir_chosen"]
 [connection signal="new_dir_chosen" from="Wheel Display/Wheel" to="Wheel Display/Damage" method="_on_wheel_new_dir_chosen"]
+[connection signal="new_dir_selected" from="Wheel Display/Wheel" to="Wheel Display" method="_on_wheel_new_dir_selected"]
 [connection signal="puzzle_finished" from="Wheel Display/Wheel" to="." method="_on_wheel_puzzle_finished"]
 [connection signal="puzzle_finished" from="Wheel Display/Wheel" to="Wheel Display" method="_on_wheel_puzzle_finished"]
 [connection signal="item_activated" from="Player Menu/Player Moves" to="." method="_on_player_moves_item_activated"]
+[connection signal="player_lost" from="Battle Text/ColorRect/BattleText" to="." method="end_battle_player_lost"]
+[connection signal="player_won" from="Battle Text/ColorRect/BattleText" to="." method="end_battle_player_won"]
 [connection signal="animation_finished" from="BattleAnimationPlayer" to="Wheel Display" method="_on_animation_player_animation_finished"]
