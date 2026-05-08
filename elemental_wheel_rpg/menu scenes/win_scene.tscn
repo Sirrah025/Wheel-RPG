@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://b3lrar01i47e6"]
+
+[ext_resource type="Script" uid="uid://cmijbgwvo71th" path="res://menu scenes/back_to_menu_button.gd" id="1_nxyv2"]
+
+[node name="Win Scene" type="Control" unique_id=1265800179]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=764810551]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.83889705, 0.83889705, 0.838897, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect" unique_id=1492348351]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 45.0
+offset_right = -54.0
+offset_bottom = -75.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 75
+text = "You get some money, but there is no expansion past this point, so you can just go back home and chill with your friend."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="ColorRect" unique_id=1574515838]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -57.0
+offset_top = -56.0
+offset_right = 57.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Back to Menu"
+script = ExtResource("1_nxyv2")
+
+[connection signal="pressed" from="ColorRect/Button" to="ColorRect/Button" method="_on_pressed"]

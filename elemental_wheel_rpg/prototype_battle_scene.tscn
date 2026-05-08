@@ -21,6 +21,7 @@
 [ext_resource type="Resource" uid="uid://dt0gyha325hmn" path="res://Data/Moves/Tackle.tres" id="11_ry6t0"]
 [ext_resource type="Script" uid="uid://ckl2thf7ils11" path="res://Systems/Scripts/battle_animation_player.gd" id="12_ry6t0"]
 [ext_resource type="Script" uid="uid://buoti3bgoq8im" path="res://Systems/Scripts/battle_text.gd" id="16_ov7wc"]
+[ext_resource type="Resource" uid="uid://dlpwk6hk8poen" path="res://Data/Moves/Quick_Attack.tres" id="17_2e0af"]
 [ext_resource type="Resource" uid="uid://ls6v06eexaf3" path="res://Data/Text/enemy_fainted_text.tres" id="17_3v56m"]
 [ext_resource type="Resource" uid="uid://ufsumq2w85d4" path="res://Data/Text/player_fainted_text.tres" id="18_md2b3"]
 
@@ -584,7 +585,7 @@ flip_h = true
 [node name="Enemy" type="Node" parent="Enemy2D" unique_id=1269722214]
 script = ExtResource("9_34jd4")
 entity_data = ExtResource("10_ri76t")
-moves = Array[ExtResource("7_34jd4")]([ExtResource("11_ry6t0")])
+moves = Array[ExtResource("7_34jd4")]([ExtResource("11_ry6t0"), ExtResource("17_2e0af")])
 metadata/_custom_type_script = "uid://pcqwpekbu4xt"
 
 [node name="EnemyHealthBar" type="ProgressBar" parent="Enemy2D" unique_id=1416462897 node_paths=PackedStringArray("entity")]

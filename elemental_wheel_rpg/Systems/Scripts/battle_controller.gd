@@ -95,6 +95,14 @@ func play_hit_sound() -> void:
 func play_death_sound() -> void:
 	SoundHandler.stream = death_sound
 	SoundHandler.play()
+
+func end_battle_player_lost() -> void:
+	MusicHandler.stop()
+	get_tree().change_scene_to_file("res://menu scenes/fail_screen.tscn")
+	
+func end_battle_player_won() -> void:
+	MusicHandler.stop()
+	get_tree().change_scene_to_file("res://menu scenes/win_scene.tscn")
 #endregion
 
 
