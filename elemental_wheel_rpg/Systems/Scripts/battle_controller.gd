@@ -2,6 +2,8 @@ extends Node2D
 
 
 signal start_wheel
+signal player_lost
+signal player_won
 
 #region External Variables
 @export var player_entity: Entity
@@ -35,7 +37,7 @@ func _ready() -> void:
 		player_moves.add_item(player_entity.moves[i].name)
 #endregion Built-In Functions
 
-
+#region Custom Functions
 func start_attacks() -> void:
 	if (player_move.speed_priority+1 * player_entity.entity_data.Speed) >= (enemy_move.speed_priority+1 * enemy_entity.entity_data.Speed):
 		player_first = true
@@ -69,10 +71,13 @@ func enemy_deal_damage() -> void:
 	player_entity.take_damage(enemy_damage.get_total_damage())
 	player_animation_player.play("take_damage")
 	await player_animation_player.animation_finished
+	if player_entity.HP == 0:
+		return
 	if !player_first:
 		start_player_attack()
 	else:
 		finish_round()
+#endregion
 
 
 func _on_wheel_new_dir_chosen(payload: RefCounted) -> void:
@@ -91,6 +96,8 @@ func _on_wheel_puzzle_finished() -> void:
 	enemy_entity.take_damage(player_damage.get_total_damage())
 	enemy_animation_player.play("enemy_take_damage")
 	await enemy_animation_player.animation_finished
+	if enemy_entity.HP == 0:
+		return
 	if player_first:
 		enemy_deal_damage()
 	else:
@@ -101,3 +108,15 @@ func _on_player_moves_item_activated(index: int) -> void:
 	player_move = player_entity.moves[index]
 	enemy_move = enemy_entity.select_move()
 	start_attacks()
+
+
+func _on_player_defeated() -> void:
+	player_animation_player.play("Player Entity Defeated")
+	await player_animation_player.animation_finished
+	player_lost.emit()
+
+
+func _on_enemy_defeated() -> void:
+	enemy_animation_player.play("Enemy Entity Defeated")
+	await enemy_animation_player.animation_finished
+	player_won.emit()

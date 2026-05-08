@@ -12,6 +12,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
+func reset_damage_display() -> void:
+	total_damage = 0
+	text = damage_text + str(total_damage)
 
 func _on_wheel_new_dir_chosen(payload: RefCounted) -> void:
 	total_damage += payload.slice_value

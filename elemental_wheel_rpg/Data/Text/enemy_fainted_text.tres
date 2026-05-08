@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Text" format=3 uid="uid://ls6v06eexaf3"]
+
+[ext_resource type="Script" uid="uid://cna317jfhfukc" path="res://Data/Text/text.gd" id="1_taqb4"]
+
+[resource]
+script = ExtResource("1_taqb4")
+text_to_render = "Your enemy has fainted."
+metadata/_custom_type_script = "uid://cna317jfhfukc"

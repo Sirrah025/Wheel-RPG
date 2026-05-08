@@ -16,7 +16,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-WheelDebug="*uid://bg58xf64287ia"
+WheelDebug="uid://bg58xf64287ia"
 GlobalEnums="*uid://bmcvwpdgaxe2a"
 
 [physics]

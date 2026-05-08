@@ -161,6 +161,47 @@ grow_vertical = 2
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("7_kuksd")
 
+[node name="ElementLabel Fire" type="RichTextLabel" parent="wheel" unique_id=646986158]
+custom_minimum_size = Vector2(35, 25)
+layout_mode = 0
+offset_left = 1.0
+offset_top = -131.0
+offset_right = 36.0
+offset_bottom = -106.0
+theme_override_constants/outline_size = 3
+text = "FIRE"
+
+[node name="ElementLabel Water" type="RichTextLabel" parent="wheel" unique_id=439764258]
+custom_minimum_size = Vector2(58, 25)
+layout_mode = 0
+offset_left = 171.0
+offset_top = -16.0
+offset_right = 229.0
+offset_bottom = 9.0
+rotation = 1.5707964
+theme_override_constants/outline_size = 3
+text = "WATER"
+
+[node name="ElementLabel Earth" type="RichTextLabel" parent="wheel" unique_id=210567981]
+custom_minimum_size = Vector2(55, 25)
+layout_mode = 0
+offset_left = -132.0
+offset_top = 39.0
+offset_right = -76.82
+offset_bottom = 64.18
+rotation = 4.712389
+theme_override_constants/outline_size = 3
+text = "EARTH"
+
+[node name="ElementLabel Wind" type="RichTextLabel" parent="wheel" unique_id=1445512597]
+custom_minimum_size = Vector2(57, 25)
+layout_mode = 0
+offset_top = 152.0
+offset_right = 57.175
+offset_bottom = 176.2
+theme_override_constants/outline_size = 3
+text = "WIND"
+
 [node name="covers" type="Control" parent="." unique_id=1649465303]
 unique_name_in_owner = true
 layout_mode = 1

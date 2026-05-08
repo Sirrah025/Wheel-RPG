@@ -1,7 +1,6 @@
 class_name Entity
 extends Node
 
-signal entity_at_zero_hp
 signal change_health_value_visual(hp: int)
 
 @export var entity_data: Entity_Data
@@ -20,13 +19,13 @@ func _process(delta: float) -> void:
 	pass
 
 func take_damage(damage: int) -> void:
+	print_debug(HP)
+	print_debug(damage)
 	HP = clamp(HP - damage, 0, entity_data.Max_HP)
+	print_debug(HP)
 
 func heal_health(heal: int) -> void:
 	HP = clamp(HP + heal, 0, entity_data.Max_HP)
 
 func change_visual() -> void:
 	change_health_value_visual.emit(HP)
-	
-	if HP == 0:
-		entity_at_zero_hp.emit()

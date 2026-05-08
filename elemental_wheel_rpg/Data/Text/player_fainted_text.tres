@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Text" format=3 uid="uid://ufsumq2w85d4"]
+
+[ext_resource type="Script" uid="uid://cna317jfhfukc" path="res://Data/Text/text.gd" id="1_ftey0"]
+
+[resource]
+script = ExtResource("1_ftey0")
+text_to_render = "Your friend has fainted! You black out."
+metadata/_custom_type_script = "uid://cna317jfhfukc"
