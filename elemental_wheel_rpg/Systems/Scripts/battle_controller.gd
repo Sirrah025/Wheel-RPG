@@ -3,10 +3,12 @@ extends Node2D
 
 signal start_wheel
 
-
+#region External Variables
 @export var player_entity: Entity
 @export var enemy_entity: Enemy_Entity
+#endregion
 
+#region Internal Variables
 var player_move: Move_Data
 var enemy_move: Move_Data
 
@@ -14,21 +16,25 @@ var player_first: bool
 
 var player_damage: Damage
 var enemy_damage: Damage
+#endregion
 
+#region Initialized Variables
 @onready var player_menu := %"Player Menu"
 @onready var player_moves := %"Player Moves"
 
+@onready var player_animation_player := %PlayerAnimationPlayer
+@onready var enemy_animation_player := %EnemyAnimationPlayer
+@onready var battle_animation_player := %BattleAnimationPlayer
+#endregion
 
+#region Built-In Functions
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var move_range = min(player_entity.moves.size(), 4)
 	for i in range(move_range):
 		player_moves.add_item(player_entity.moves[i].name)
+#endregion Built-In Functions
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 func start_attacks() -> void:
 	if (player_move.speed_priority+1 * player_entity.entity_data.Speed) >= (enemy_move.speed_priority+1 * enemy_entity.entity_data.Speed):
@@ -46,11 +52,13 @@ func start_player_attack() -> void:
 	player_damage.user = player_entity.entity_data
 	player_damage.target = enemy_entity.entity_data
 	player_damage.move = player_move
+	battle_animation_player.play("Transition to Wheel")
 	start_wheel.emit()
 
 
 func finish_round() -> void:
-	pass
+	battle_animation_player.play("Transition to Battle Menu")
+	await battle_animation_player.animation_finished
 
 
 func enemy_deal_damage() -> void:
@@ -58,7 +66,9 @@ func enemy_deal_damage() -> void:
 	enemy_damage.user = enemy_entity.entity_data
 	enemy_damage.target = player_entity.entity_data
 	enemy_damage.move = enemy_move
-	player_entity.HP - enemy_damage.get_total_damage()
+	player_entity.take_damage(enemy_damage.get_total_damage())
+	player_animation_player.play("take_damage")
+	await player_animation_player.animation_finished
 	if !player_first:
 		start_player_attack()
 	else:
@@ -78,7 +88,9 @@ func _on_wheel_new_dir_chosen(payload: RefCounted) -> void:
 
 
 func _on_wheel_puzzle_finished() -> void:
-	enemy_entity.HP - player_damage.get_total_damage()
+	enemy_entity.take_damage(player_damage.get_total_damage())
+	enemy_animation_player.play("enemy_take_damage")
+	await enemy_animation_player.animation_finished
 	if player_first:
 		enemy_deal_damage()
 	else:

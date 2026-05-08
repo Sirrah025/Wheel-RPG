@@ -9,6 +9,6 @@ var move: Move_Data
 
 func get_total_damage() -> int:
 	var total_damage := 0
-	var damage_coefficient = user.Attack / user.Defense
+	var damage_coefficient = user.Attack / target.Defense
 	total_damage = damage_amount * damage_coefficient * move.power
 	return total_damage

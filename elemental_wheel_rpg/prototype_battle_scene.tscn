@@ -3,19 +3,386 @@
 [ext_resource type="PackedScene" uid="uid://ynmfrkjnnm6r" path="res://the-wheel-godot/wheel.tscn" id="1_igl0m"]
 [ext_resource type="Script" uid="uid://c05vklkjhjmvv" path="res://Systems/Scripts/battle_controller.gd" id="1_rfxso"]
 [ext_resource type="Script" uid="uid://nwfs84gkgpkm" path="res://Systems/Scripts/wheel_display.gd" id="2_3e347"]
+[ext_resource type="Texture2D" uid="uid://b11abcusm0813" path="res://Visuals/springlingSprout.png" id="2_n0xqp"]
 [ext_resource type="Script" uid="uid://bp8aej24nd7ku" path="res://damage_text.gd" id="2_rfxso"]
 [ext_resource type="Script" uid="uid://dv1rmuim3a4e1" path="res://Data/entity.gd" id="5_4jure"]
 [ext_resource type="Resource" uid="uid://0t1leps3oxna" path="res://Data/Entities/Player.tres" id="6_cluib"]
 [ext_resource type="Script" uid="uid://ox8uhl7w32pe" path="res://Data/Moves/move_data.gd" id="7_34jd4"]
+[ext_resource type="Theme" uid="uid://d26u5bcwi6vti" path="res://Health Bar Theme.tres" id="7_hya0h"]
+[ext_resource type="Script" uid="uid://bj47j7a0uvlip" path="res://health_bar.gd" id="8_hya0h"]
 [ext_resource type="Resource" uid="uid://cuwxuutdijgr7" path="res://Data/Moves/Scratch.tres" id="8_kigis"]
+[ext_resource type="Texture2D" uid="uid://evpc78pnxsaw" path="res://Visuals/beenforcer.png" id="8_ov7wc"]
 [ext_resource type="Script" uid="uid://pcqwpekbu4xt" path="res://Data/enemy_entity.gd" id="9_34jd4"]
 [ext_resource type="Resource" uid="uid://bdgddu0rgp6u2" path="res://Data/Entities/Test_Enemy.tres" id="10_ri76t"]
 [ext_resource type="Resource" uid="uid://dt0gyha325hmn" path="res://Data/Moves/Tackle.tres" id="11_ry6t0"]
+[ext_resource type="Script" uid="uid://ckl2thf7ils11" path="res://Systems/Scripts/battle_animation_player.gd" id="12_ry6t0"]
+
+[sub_resource type="Animation" id="Animation_hya0h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_ov7wc"]
+resource_name = "take_damage"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.16666667, 0.4, 0.6333333, 0.8666667, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Player")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"change_visual"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y6onp"]
+_data = {
+&"RESET": SubResource("Animation_hya0h"),
+&"take_damage": SubResource("Animation_ov7wc")
+}
+
+[sub_resource type="Animation" id="Animation_y6onp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_3v56m"]
+resource_name = "enemy_take_damage"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.3, 0.46666667, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Enemy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.96666664),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"change_visual"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_md2b3"]
+_data = {
+&"RESET": SubResource("Animation_y6onp"),
+&"enemy_take_damage": SubResource("Animation_3v56m")
+}
+
+[sub_resource type="Animation" id="Animation_ry6t0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player Menu:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Player Menu:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Wheel Display/Wheel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Wheel Display/Wheel:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Wheel Display/Damage:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Wheel Display/Damage:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_md2b3"]
+resource_name = "Transition to Battle Menu"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player Menu:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.033333335),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Player Menu:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.033333335, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_pv5ot"]
+resource_name = "Transition to Wheel"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player Menu:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.033333335, 0.5),
+"transitions": PackedFloat32Array(1, 0.6372803),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Player Menu:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.033333335, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Wheel Display/Wheel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.23333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Wheel Display/Wheel:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2, 0.73333335),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Wheel Display/Damage:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.26666668),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Wheel Display/Damage:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.23333333, 0.73333335),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tmdu0"]
+_data = {
+&"RESET": SubResource("Animation_ry6t0"),
+&"Transition to Battle Menu": SubResource("Animation_md2b3"),
+&"Transition to Wheel": SubResource("Animation_pv5ot")
+}
 
 [node name="Prototype Battle Scene" type="Node2D" unique_id=276792965 node_paths=PackedStringArray("player_entity", "enemy_entity")]
 script = ExtResource("1_rfxso")
-player_entity = NodePath("Player")
-enemy_entity = NodePath("Enemy")
+player_entity = NodePath("Player2D/Player")
+enemy_entity = NodePath("Enemy2D/Enemy")
+
+[node name="Backdrop" type="Control" parent="." unique_id=625970739]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1157.0
+offset_bottom = 655.0
+
+[node name="Background" type="ColorRect" parent="Backdrop" unique_id=1925152123]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.99607843, 0.78039217, 1)
+
+[node name="Player2D" type="Node2D" parent="." unique_id=1363512189]
+position = Vector2(467, 534)
+
+[node name="Sprite2D" type="Sprite2D" parent="Player2D" unique_id=1102219644]
+position = Vector2(-67, -34)
+scale = Vector2(3, 3)
+texture = ExtResource("2_n0xqp")
+flip_h = true
+
+[node name="Player" type="Node" parent="Player2D" unique_id=1164922810]
+script = ExtResource("5_4jure")
+entity_data = ExtResource("6_cluib")
+moves = Array[ExtResource("7_34jd4")]([ExtResource("8_kigis")])
+metadata/_custom_type_script = "uid://dv1rmuim3a4e1"
+
+[node name="PlayerHealthBar" type="ProgressBar" parent="Player2D" unique_id=1840190488 node_paths=PackedStringArray("entity")]
+custom_minimum_size = Vector2(260, 0)
+offset_left = -157.0
+offset_top = 67.0
+offset_right = -153.0
+offset_bottom = 94.0
+theme = ExtResource("7_hya0h")
+step = 1.0
+show_percentage = false
+script = ExtResource("8_hya0h")
+entity = NodePath("../Player")
+
+[node name="PlayerAnimationPlayer" type="AnimationPlayer" parent="Player2D" unique_id=460508222]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_y6onp")
+
+[node name="Enemy2D" type="Node2D" parent="." unique_id=1663527957]
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy2D" unique_id=1277165080]
+position = Vector2(946, 145)
+scale = Vector2(2, 2)
+texture = ExtResource("8_ov7wc")
+flip_h = true
+
+[node name="Enemy" type="Node" parent="Enemy2D" unique_id=1269722214]
+script = ExtResource("9_34jd4")
+entity_data = ExtResource("10_ri76t")
+moves = Array[ExtResource("7_34jd4")]([ExtResource("11_ry6t0")])
+metadata/_custom_type_script = "uid://pcqwpekbu4xt"
+
+[node name="EnemyHealthBar" type="ProgressBar" parent="Enemy2D" unique_id=1416462897 node_paths=PackedStringArray("entity")]
+custom_minimum_size = Vector2(260, 0)
+offset_left = 735.0
+offset_top = 152.0
+offset_right = 739.0
+offset_bottom = 179.0
+theme = ExtResource("7_hya0h")
+step = 1.0
+show_percentage = false
+script = ExtResource("8_hya0h")
+entity = NodePath("../Enemy")
+
+[node name="EnemyAnimationPlayer" type="AnimationPlayer" parent="Enemy2D" unique_id=743591651]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_md2b3")
 
 [node name="Wheel Display" type="Control" parent="." unique_id=822662199]
 unique_name_in_owner = true
@@ -39,6 +406,7 @@ offset_left = 323.0
 offset_top = 141.0
 offset_right = 472.0
 offset_bottom = 181.0
+theme_override_constants/outline_size = 3
 text = "Total Damage: "
 script = ExtResource("2_rfxso")
 
@@ -67,21 +435,17 @@ grow_vertical = 0
 allow_reselect = true
 allow_search = false
 
-[node name="Player" type="Node" parent="." unique_id=1164922810]
-script = ExtResource("5_4jure")
-entity_data = ExtResource("6_cluib")
-moves = Array[ExtResource("7_34jd4")]([ExtResource("8_kigis")])
-metadata/_custom_type_script = "uid://dv1rmuim3a4e1"
-
-[node name="Enemy" type="Node" parent="." unique_id=1269722214]
-script = ExtResource("9_34jd4")
-entity_data = ExtResource("10_ri76t")
-moves = Array[ExtResource("7_34jd4")]([ExtResource("11_ry6t0")])
-metadata/_custom_type_script = "uid://pcqwpekbu4xt"
+[node name="BattleAnimationPlayer" type="AnimationPlayer" parent="." unique_id=916617851]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_tmdu0")
+script = ExtResource("12_ry6t0")
 
 [connection signal="start_wheel" from="." to="Wheel Display" method="_on_prototype_battle_scene_start_wheel"]
+[connection signal="change_health_value_visual" from="Player2D/Player" to="Player2D/PlayerHealthBar" method="_on_change_health_value_visual"]
+[connection signal="change_health_value_visual" from="Enemy2D/Enemy" to="Enemy2D/EnemyHealthBar" method="_on_change_health_value_visual"]
 [connection signal="new_dir_chosen" from="Wheel Display/Wheel" to="." method="_on_wheel_new_dir_chosen"]
 [connection signal="new_dir_chosen" from="Wheel Display/Wheel" to="Wheel Display/Damage" method="_on_wheel_new_dir_chosen"]
 [connection signal="puzzle_finished" from="Wheel Display/Wheel" to="." method="_on_wheel_puzzle_finished"]
 [connection signal="puzzle_finished" from="Wheel Display/Wheel" to="Wheel Display" method="_on_wheel_puzzle_finished"]
 [connection signal="item_activated" from="Player Menu/Player Moves" to="." method="_on_player_moves_item_activated"]
+[connection signal="animation_finished" from="BattleAnimationPlayer" to="Wheel Display" method="_on_animation_player_animation_finished"]

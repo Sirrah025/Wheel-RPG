@@ -15,5 +15,9 @@ func _on_wheel_puzzle_finished() -> void:
 func _on_prototype_battle_scene_start_wheel() -> void:
 	wheel.visible = true
 	damage_text.visible = true
-	player_moves.visible = false
 	wheel.open_wheel()
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "Transition to Wheel":
+		wheel.open_wheel()
