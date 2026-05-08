@@ -8,6 +8,11 @@ signal player_won
 #region External Variables
 @export var player_entity: Entity
 @export var enemy_entity: Enemy_Entity
+
+@export var select_sound: AudioStreamWAV
+@export var hit_sound: AudioStreamWAV
+@export var powerup_sound: AudioStreamWAV
+@export var death_sound: AudioStreamWAV
 #endregion
 
 #region Internal Variables
@@ -32,6 +37,9 @@ var enemy_damage: Damage
 #region Built-In Functions
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	battle_animation_player.play("Starting Combat")
+	await battle_animation_player.animation_finished
+	
 	var move_range = min(player_entity.moves.size(), 4)
 	for i in range(move_range):
 		player_moves.add_item(player_entity.moves[i].name)
@@ -70,6 +78,7 @@ func enemy_deal_damage() -> void:
 	enemy_damage.move = enemy_move
 	player_entity.take_damage(enemy_damage.get_total_damage())
 	player_animation_player.play("take_damage")
+	play_hit_sound()
 	await player_animation_player.animation_finished
 	if player_entity.HP == 0:
 		return
@@ -77,6 +86,15 @@ func enemy_deal_damage() -> void:
 		start_player_attack()
 	else:
 		finish_round()
+
+
+func play_hit_sound() -> void:
+	SoundHandler.stream = hit_sound
+	SoundHandler.play()
+
+func play_death_sound() -> void:
+	SoundHandler.stream = death_sound
+	SoundHandler.play()
 #endregion
 
 
@@ -90,11 +108,14 @@ func _on_wheel_new_dir_chosen(payload: RefCounted) -> void:
 		GlobalEnums.Resistance.RESISTANT:
 			damage_increase = max(damage_increase/2, 1)
 	player_damage.damage_amount += payload.slice_value
+	SoundHandler.stream = powerup_sound
+	SoundHandler.play()
 
 
 func _on_wheel_puzzle_finished() -> void:
 	enemy_entity.take_damage(player_damage.get_total_damage())
 	enemy_animation_player.play("enemy_take_damage")
+	play_hit_sound()
 	await enemy_animation_player.animation_finished
 	if enemy_entity.HP == 0:
 		return
@@ -105,6 +126,8 @@ func _on_wheel_puzzle_finished() -> void:
 
 
 func _on_player_moves_item_activated(index: int) -> void:
+	SoundHandler.stream = select_sound
+	SoundHandler.play()
 	player_move = player_entity.moves[index]
 	enemy_move = enemy_entity.select_move()
 	start_attacks()
@@ -112,11 +135,13 @@ func _on_player_moves_item_activated(index: int) -> void:
 
 func _on_player_defeated() -> void:
 	player_animation_player.play("Player Entity Defeated")
+	play_death_sound()
 	await player_animation_player.animation_finished
 	player_lost.emit()
 
 
 func _on_enemy_defeated() -> void:
 	enemy_animation_player.play("Enemy Entity Defeated")
+	play_death_sound()
 	await enemy_animation_player.animation_finished
 	player_won.emit()

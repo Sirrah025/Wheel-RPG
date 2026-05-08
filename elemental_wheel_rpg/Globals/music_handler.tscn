@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://b4nh2c84pblih"]
+
+[node name="MusicHandler" type="AudioStreamPlayer" unique_id=1245738503]
+volume_db = -13.419

@@ -5,7 +5,11 @@
 [ext_resource type="Script" uid="uid://nwfs84gkgpkm" path="res://Systems/Scripts/wheel_display.gd" id="2_3e347"]
 [ext_resource type="Texture2D" uid="uid://b11abcusm0813" path="res://Visuals/springlingSprout.png" id="2_n0xqp"]
 [ext_resource type="Script" uid="uid://bp8aej24nd7ku" path="res://damage_text.gd" id="2_rfxso"]
+[ext_resource type="AudioStream" uid="uid://denrbjrog6td1" path="res://SFX/Sounds/blipSelect.wav" id="2_sdfsb"]
 [ext_resource type="Script" uid="uid://cnh5oa8y11irw" path="res://Data/player_entity.gd" id="3_hya0h"]
+[ext_resource type="AudioStream" uid="uid://bttt1su10qkub" path="res://SFX/Sounds/hitHurt.wav" id="3_iaskt"]
+[ext_resource type="AudioStream" uid="uid://dsdycjtxky8pr" path="res://SFX/Sounds/powerUp.wav" id="4_iaskt"]
+[ext_resource type="AudioStream" uid="uid://b17pr80mycx3s" path="res://SFX/Sounds/Death.wav" id="5_nhcym"]
 [ext_resource type="Resource" uid="uid://0t1leps3oxna" path="res://Data/Entities/Player.tres" id="6_cluib"]
 [ext_resource type="Script" uid="uid://ox8uhl7w32pe" path="res://Data/Moves/move_data.gd" id="7_34jd4"]
 [ext_resource type="Theme" uid="uid://d26u5bcwi6vti" path="res://Health Bar Theme.tres" id="7_hya0h"]
@@ -253,6 +257,142 @@ tracks/5/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Player2D:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(467, 534)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Enemy2D:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Battle Text:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Player2D/PlayerHealthBar:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Enemy2D/EnemyHealthBar:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_nhcym"]
+resource_name = "Starting Combat"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-119.99, 534), Vector2(467, 534)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Enemy2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(435.43, 0), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Battle Text:modulate")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.0333333, 1.9666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Player Menu:modulate")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Player2D/PlayerHealthBar:modulate")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.2333333, 1.9666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Enemy2D/EnemyHealthBar:modulate")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(1.2666667, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_md2b3"]
 resource_name = "Transition to Battle Menu"
@@ -373,6 +513,7 @@ tracks/6/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tmdu0"]
 _data = {
 &"RESET": SubResource("Animation_ry6t0"),
+&"Starting Combat": SubResource("Animation_nhcym"),
 &"Transition to Battle Menu": SubResource("Animation_md2b3"),
 &"Transition to Wheel": SubResource("Animation_pv5ot")
 }
@@ -381,6 +522,10 @@ _data = {
 script = ExtResource("1_rfxso")
 player_entity = NodePath("Player2D/Player")
 enemy_entity = NodePath("Enemy2D/Enemy")
+select_sound = ExtResource("2_sdfsb")
+hit_sound = ExtResource("3_iaskt")
+powerup_sound = ExtResource("4_iaskt")
+death_sound = ExtResource("5_nhcym")
 
 [node name="Backdrop" type="Control" parent="." unique_id=625970739]
 layout_mode = 3

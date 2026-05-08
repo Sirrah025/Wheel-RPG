@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://vv6qv2kua1c3"]
+
+[ext_resource type="Script" uid="uid://dspwr43w7agpr" path="res://menu scenes/play.gd" id="1_8eshy"]
+[ext_resource type="AudioStream" uid="uid://d1ccka8dcyuhg" path="res://SFX/Music/Three Red Hearts - Box Jump.ogg" id="2_i8v26"]
+
+[node name="Start menu" type="Control" unique_id=1046438014]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="Control" parent="." unique_id=5992071]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Background" unique_id=730445468]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.64, 0.63765335, 0.49919996, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=247064223]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -266.0
+offset_right = 266.0
+offset_bottom = 371.0
+grow_horizontal = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 89
+bbcode_enabled = true
+text = "WHEELMON[center]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Buttons" type="VBoxContainer" parent="." unique_id=489598078]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Play" type="Button" parent="Buttons" unique_id=139204549]
+layout_mode = 2
+text = "Play"
+script = ExtResource("1_8eshy")
+battle_music = ExtResource("2_i8v26")
+
+[node name="How To Play" type="Button" parent="Buttons" unique_id=2092703351]
+visible = false
+layout_mode = 2
+text = "How to Play"
+
+[connection signal="pressed" from="Buttons/Play" to="Buttons/Play" method="_on_pressed"]

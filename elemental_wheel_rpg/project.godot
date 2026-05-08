@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 
 WheelDebug="uid://bg58xf64287ia"
 GlobalEnums="*uid://bmcvwpdgaxe2a"
+MusicHandler="*uid://b4nh2c84pblih"
+SoundHandler="*uid://tcj3qgyb7nbc"
 
 [physics]
 
